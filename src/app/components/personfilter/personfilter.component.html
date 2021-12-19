@@ -1,0 +1,28 @@
+<h2>Filter persons </h2>
+<ng-container *ngIf="mergedPerson$ | async;let mergedPerson">
+    <div fxLayout="row">
+    <ng-container *ngFor="let prop of selectedProps">
+        <form fxFlex >
+            <ng-container *ngTemplateOutlet="autocomplete;context:{prop,control:formGroup.get(prop),options:(mergedPerson | value : prop ) }" ></ng-container>
+        </form>
+    </ng-container>
+    </div> 
+</ng-container>
+
+<ng-template #autocomplete let-prop="prop" let-options="options" let-control="control">
+    <ng-container *ngIf="options" >
+    <mat-form-field  appearance="fill">
+        <mat-label>{{prop}}</mat-label>
+        <input matInput
+               [matAutocomplete]="auto"
+               [formControl]="control">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="prop | function : getDisplayFn">
+          <ng-container *ngIf="(control | controlfilter : options) | async;let filteredOptions">
+          <mat-option *ngFor="let option of filteredOptions" [value]="option">
+            <span>{{option}}</span>
+          </mat-option>
+        </ng-container>
+        </mat-autocomplete>
+      </mat-form-field>
+    </ng-container>
+</ng-template>

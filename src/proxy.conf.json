@@ -1,0 +1,11 @@
+{
+    "/riksdagen": {
+        "target": "http://data.riksdagen.se",
+        "secure": false,
+        "changeOrigin": true,
+        "pathRewrite": {
+          "^/riksdagen": ""
+        }
+    }
+}
+  

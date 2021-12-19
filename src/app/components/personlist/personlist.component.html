@@ -1,0 +1,19 @@
+<app-personfilter (filter)="onFilter($event)"></app-personfilter>
+<ng-container *ngTemplateOutlet="sorter"></ng-container>
+<ng-container *ngIf="persons$ | async;let persons">
+<p>{{persons.length}} Results</p>
+<app-person *ngFor="let person of persons; trackBy:trackBy"
+[person]="person"
+>
+</app-person>
+</ng-container>
+<ng-template #sorter>
+    <mat-form-field appearance="fill">
+        <mat-label>Order by</mat-label>
+        <mat-select [(ngModel)]=currentSort (selectionChange)="onSort($event)">
+          <mat-option *ngFor="let option of sortOptions" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-select>
+    </mat-form-field>
+</ng-template>

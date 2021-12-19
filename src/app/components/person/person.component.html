@@ -1,0 +1,17 @@
+<mat-card>
+    <mat-card-header [ngClass]="person.parti">
+        <mat-card-title>{{person.displayName}}</mat-card-title>
+        <mat-card-subtitle>{{person.partinamn}}</mat-card-subtitle>
+    </mat-card-header>
+    <img [src]="person.bild_url_80"/>
+    <mat-card-content>
+        <label>Uppdrag</label>
+        <button mat-button (click)="toggleExpanded()">
+            <mat-icon>{{expanded ? 'expand_less' : 'expand_more'}}</mat-icon>
+        </button>
+        
+        <ng-container *ngIf="expanded">
+        <app-uppdrag *ngFor="let uppdrag of person.currentUppdrag" [uppdrag]="uppdrag"></app-uppdrag>
+        </ng-container>
+    </mat-card-content>
+</mat-card>
